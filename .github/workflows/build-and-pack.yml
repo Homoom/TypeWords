@@ -25,13 +25,17 @@ jobs:
         with:
           node-version: '18'
 
-      # 步骤3：安装项目依赖（添加 --legacy-peer-deps 解决版本冲突）
+      # 步骤2.5：安装 pnpm（解决 pnpm 未找到的问题）
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # 步骤3：安装项目依赖（用 pnpm 安装）
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: pnpm install
 
       # 步骤4：执行打包命令（生成 dist 文件夹）
       - name: Build project
-        run: npm run build
+        run: pnpm run build
 
       # 步骤5：打包 dist 文件夹为压缩包（方便下载）
       - name: Package dist folder
